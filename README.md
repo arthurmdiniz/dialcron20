@@ -6,12 +6,14 @@
 ### 2. Instalação
 ```bash
 npm install
-3. Executar o projeto
+
+### 3. Executar o projeto
 npm run dev
-4. Build para produção
+
+### 4. Build para produção
 npm run build
 ---
-Estrutura do Projeto
+### 5. Estrutura do Projeto
 src/
 ├── components/
 │   ├── Menu/           ← Menu principal (barra superior)
