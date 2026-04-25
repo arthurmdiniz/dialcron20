@@ -61,7 +61,7 @@
   flex: 1;
 }
 
-.menu-nav ul {
+.menu-nav > ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -129,6 +129,15 @@
   transform: translateY(-10px);
   transition: all 0.3s ease;
   z-index: 600;
+  display: block;
+}
+
+.submenu ul {
+  display: block;
+}
+
+.submenu > li {
+  display: block;
 }
 
 .submenu.open {
