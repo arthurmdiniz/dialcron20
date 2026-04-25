@@ -1,0 +1,80 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 600;
+}
+
+.modal-container {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  max-width: 600px;
+  width: max-content;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 700;
+  position: relative;
+}
+
+.modal-container h2 {
+  color: #277bbc;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
+.sobre-section {
+  margin-bottom: 1.5rem;
+}
+
+.sobre-section h3 {
+  color: #277bbc;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.sobre-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sobre-lista li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  color: #555;
+}
+
+.sobre-lista li:last-child {
+  border-bottom: none;
+}
+
+.sobre-lista strong {
+  color: #333;
+}
+
+.modal-close-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #277bbc;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 800;
+}
+
+.modal-close-btn:hover {
+  background: #1a5a8a;
+}
