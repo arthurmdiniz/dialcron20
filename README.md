@@ -1,3 +1,5 @@
+![Preview do projeto](./img/DialcronSplash.png)
+
 # Dialcron - Projeto React
 
 ## Como executar este projeto
