@@ -47,7 +47,7 @@ export default function Menu({ onShowDocumentacao, onShowSobre }) {
   return (
     <div className="menu-topbar" ref={menuRef}>
       <div className="menu-logo">
-        <img src={`${import.meta.env.BASE_URL}img/logo32.png`} alt="Logo" className="menu-logo-img" />
+        <img src={`${import.meta.env.BASE_URL}/img/logo32.png`} alt="Logo" className="menu-logo-img" />
         <span>Dialcron</span>
       </div>
 
