@@ -2,6 +2,11 @@ const express = require('express')
 const cors = require('cors')
 const medicosRouter = require('./routes/medicos')
 const especialidadesRouter = require('./routes/especialidades')
+const usuariosRouter = require('./routes/usuarios')
+const tipoAtendimentoRouter = require('./routes/tipo-atendimento')
+const empresasRouter = require('./routes/empresas')
+const clientesRouter = require('./routes/clientes')
+const agendaRouter = require('./routes/agenda')
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -11,6 +16,11 @@ app.use(express.json())
 
 app.use('/api/medicos', medicosRouter)
 app.use('/api/especialidades', especialidadesRouter)
+app.use('/api/usuarios', usuariosRouter)
+app.use('/api/tipo-atendimento', tipoAtendimentoRouter)
+app.use('/api/empresas', empresasRouter)
+app.use('/api/clientes', clientesRouter)
+app.use('/api/agenda', agendaRouter)
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
