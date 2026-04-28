@@ -17,8 +17,6 @@
   border-radius: 10px;
   max-width: 600px;
   width: max-content;
-  max-height: 90vh;
-  overflow-y: auto;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   z-index: 700;
   position: relative;
@@ -34,6 +32,30 @@
 
 .sobre-section {
   margin-bottom: 1.5rem;
+}
+
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.sobre-bloco h4 {
+  color: #277bbc;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.sobre-bloco .sobre-lista {
+  margin: 0;
+  padding: 0;
+}
+
+.sobre-bloco {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .sobre-section h3 {
