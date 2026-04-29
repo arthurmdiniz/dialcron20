@@ -269,9 +269,7 @@ export default function CadastroEmpresa({ onClose }) {
                 required 
               />
             </div>
-
-            <div className="form-row-3">
-              <div className="form-group">
+<div className="form-group">
                 <label>CNPJ:</label>
                 <input 
                   type="text" 
@@ -280,6 +278,8 @@ export default function CadastroEmpresa({ onClose }) {
                   required 
                 />
               </div>
+            <div className="form-row-3">
+              
 
               <div className="form-group">
                 <label>Insc. Estadual:</label>
