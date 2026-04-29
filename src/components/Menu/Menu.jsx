@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './Menu.css'
 
-export default function Menu({ onShowDocumentacao, onShowSobre, onShowCadastroMedicos, onShowCadastroEsp, onShowCadastroTipoAtendimento, onShowCadastroEmpresa}) {
+export default function Menu({ onShowDocumentacao, onShowSobre, onShowCadastroMedicos, onShowCadastroEsp, onShowCadastroTipoAtendimento, onShowCadastroEmpresa, onShowCadastroUsuario}) {
   const [isOpen, setIsOpen] = useState(false)
   const [openSubmenu, setOpenSubmenu] = useState(null)
   const [openNestedSubmenu, setOpenNestedSubmenu] = useState(null)
@@ -66,7 +66,7 @@ export default function Menu({ onShowDocumentacao, onShowSobre, onShowCadastroMe
                 </a>
               </li>
               <li>
-                <a onClick={() => scrollToSection('cadastro-usuarios')}>
+                <a onClick={() => onShowCadastroUsuario(true)}>
                 👤 Cadastro usuários
                 </a>
               </li>

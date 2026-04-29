@@ -8,6 +8,7 @@ import CadastroEspecialidade from './components/Atendimento/CadastroEspecialidad
 import CadastroMedicos from './components/Atendimento/CadastroMedicos'
 import CadastroTipoAtendimento from './components/Atendimento/CadastroTipoAtendimento' 
 import CadastroEmpresa from './components/Configuracao/CadastroEmpresa'
+import CadastroUsuario from './components/Configuracao/CadastroUsuario'
 import Documentacao from './components/Documentacao/Documentacao'
 import Sobre from './components/Sobre/Sobre'
 
@@ -19,6 +20,7 @@ function App() {
   const [showCadastroEsp, setShowCadastroEsp] = useState(false)
   const [showCadastroTipoAtendimento, setShowCadastroTipoAtendimento] = useState(false)
   const [showCadastroEmpresa, setShowCadastroEmpresa] = useState(false)
+  const [showCadastroUsuario, setShowCadastroUsuario] = useState(false)
   return (
     <FundoInfinito>
       <Menu
@@ -28,6 +30,7 @@ function App() {
         onShowCadastroEsp={setShowCadastroEsp}
         onShowCadastroTipoAtendimento={setShowCadastroTipoAtendimento}
         onShowCadastroEmpresa={setShowCadastroEmpresa}
+        onShowCadastroUsuario={setShowCadastroUsuario}
       />
       {showDocumentacao && <Documentacao onClose={() => setShowDocumentacao(false)} />}
       {showSobre && <Sobre onClose={() => setShowSobre(false)} />}
@@ -35,6 +38,7 @@ function App() {
       {showCadastroEsp && <CadastroEspecialidade onClose={() => setShowCadastroEsp(false)} />}
       {showCadastroTipoAtendimento && <CadastroTipoAtendimento onClose={() => setShowCadastroTipoAtendimento(false)} />}
       {showCadastroEmpresa && <CadastroEmpresa onClose={() => setShowCadastroEmpresa(false)} />}
+      {showCadastroUsuario && <CadastroUsuario onClose={() => setShowCadastroUsuario(false)} />}
     </FundoInfinito>
   )
 }
