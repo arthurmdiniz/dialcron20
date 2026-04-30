@@ -1,6 +1,6 @@
 ![Preview do projeto](./img/DialcronSplash.png)
 
-# Dialcron - Projeto React
+# Dialcron 2.0 - Projeto React
 
 ## Como executar este projeto
 
@@ -8,6 +8,7 @@
 
 * Node.js instalado (versão 16 ou superior)
 * npm ou yarn
+* Acesso ao banco de dados MySQL remoto (servidor E15)
 
 ### 2. Instalação
 
@@ -17,9 +18,19 @@ npm install
 
 ### 3. Executar o projeto
 
+**Frontend (React + Vite):**
 ```bash
 npm run dev
 ```
+O projeto estará disponível em `http://localhost:5173`
+
+**Backend (Node.js + Express):**
+```bash
+cd server
+npm install
+npm start
+```
+O servidor API estará em `http://localhost:3001`
 
 ### 4. Build para produção
 
@@ -36,28 +47,65 @@ src/
 ├── components/
 │   ├── Menu/           ← Menu principal (barra superior)
 │   ├── Modal/          ← Componente reutilizável para popups
-│   ├── Documentacao/   ← Esta documentação
+│   ├── Documentacao/   ← Documentação completa
 │   ├── Configuracao/   ← Conteúdo do menu Configuração
-│   ├── Atendimento/    ← Conteúdo do menu Atendimento
-│   └── Sobre/          ← Informações sobre o projeto
-├── main.jsx            ← Entry point
+│   ├── Atendimento/    ← Cadastros (Médicos, Especialidades)
+│   │   ├── CadastroMedicos.jsx
+│   │   ├── CadastroEspecialidade.jsx
+│   │   └── telasCadastros.css ← CSS unificado
+│   └── Sobre/         ← Informações sobre o projeto
+├── main.jsx           ← Entry point
 ├── App.jsx             ← Componente principal
 ├── index.css           ← Estilos globais
-├── FundoInfinito.*     ← Background visual
-└── Agendamento.*       ← Página de agendamento
+├── FundoInfinito.*    ← Background visual
+└── Agendamento.*     ← Página de agendamento
+
+server/
+├── db.js              ← Conexão MySQL (servidor E15)
+├── index.js           ← Servidor Express (porta 3001)
+├── package.json      ← Dependências do backend
+└── routes/
+    ├── medicos.js      ← Rotas para médicos
+    └── especialidades.js ← Rotas para especialidades
 ```
 
 ---
 
 ## Tecnologias
 
+**Frontend:**
 * React 18.2.0
-* React DOM 18.2.0
-* React Calendar 6.0.1
 * Vite 4.4.0
+* React Calendar 6.0.1
+
+**Backend:**
+* Node.js
+* Express 4.18.2
+* MySQL2 3.9.0
+* CORS 2.8.5
+
+**Banco de Dados:**
+* MySQL (remoto E15 - database: dialcron1)
+
+**Dev Dependencies:**
+* @types/react 18.2.0
+* @vitejs/plugin-react 4.0.0
+* nodemon 3.0.0
+
+---
+
+## Funcionalidades
+
+1. **Agendamento** - Sistema de agendamento de consultas
+2. **Cadastro de Médicos** - CRUD completo com seleção de especialidades
+3. **Cadastro de Especialidades** - Gerenciamento de especialidades médicas
+4. **Documentação** - Guias completas (como criar menus, modais, páginas de cadastro, backend Node.js)
+5. **Sobre** - Informações do projeto com tecnologias atualizadas
 
 ---
 
 ## Contato
 
-Arthur / Dialcron
+**Desenvolvedor:** Arthur / Dialcron
+**Repositório:** GitHub do projeto
+**IA Utilizada:** OpenCode (big-pickle)

@@ -52,23 +52,111 @@ export default function Documentacao({ onClose }) {
                 )}
               </div>
 
-              <div className="doc-section">
-                <button className="doc-header" onClick={() => toggleSection('comoRodar')}>
-                  <span>1.2 Como Rodar o Projeto</span>
-                  <span className={`doc-arrow ${expandedSection === 'comoRodar' ? 'open' : ''}`}>▼</span>
-                </button>
-                {expandedSection === 'comoRodar' && (
-                  <div className="doc-content">
-                    <p><strong>Instalar dependências:</strong></p>
-                    <pre>{`npm install`}</pre>
-                    <p><strong>Iniciar o servidor de desenvolvimento:</strong></p>
-                    <pre>{`npm run dev`}</pre>
-                    <p><strong>Build para produção:</strong></p>
-                    <pre>{`npm run build`}</pre>
-                    <p>O projeto estará disponível em <code>http://localhost:5173</code></p>
-                  </div>
-                )}
-              </div>
+               <div className="doc-section">
+                 <button className="doc-header" onClick={() => toggleSection('comoRodar')}>
+                   <span>1.2 Como Rodar o Projeto</span>
+                   <span className={`doc-arrow ${expandedSection === 'comoRodar' ? 'open' : ''}`}>▼</span>
+                 </button>
+                 {expandedSection === 'comoRodar' && (
+                   <div className="doc-content">
+                     <p><strong>Frontend (React):</strong></p>
+                     <pre>{`cd C:\Git\dialcron20
+npm install
+npm run dev`}</pre>
+                     <p>O projeto estará em <code>http://localhost:5173</code></p>
+                     
+                     <p><strong>Backend (Node.js) - Servidor API:</strong></p>
+                     <pre>{`cd C:\Git\dialcron20\server
+npm install
+npm start`}</pre>
+                     <p>O servidor API estará em <code>http://localhost:3001</code></p>
+                     <p><strong>Build para produção:</strong></p>
+                     <pre>{`npm run build`}</pre>
+                   </div>
+                 )}
+               </div>
+
+               <div className="doc-section">
+                 <button className="doc-header" onClick={() => toggleSection('backendNode')}>
+                   <span>1.3 Backend Node.js</span>
+                   <span className={`doc-arrow ${expandedSection === 'backendNode' ? 'open' : ''}`}>▼</span>
+                 </button>
+                 {expandedSection === 'backendNode' && (
+                   <div className="doc-content">
+                     <p><strong>Estrutura da pasta <code>server/</code>:</strong></p>
+                     <pre>{`server/
+├── db.js            ← Conexão com MySQL (servidor remoto E15)
+├── index.js         ← Servidor Express (porta 3001)
+├── package.json     ← Dependências (express, mysql2, cors)
+└── routes/
+    ├── medicos.js      ← Rotas para médicos
+    └── especialidades.js ← Rotas para especialidades`}</pre>
+                     
+                     <p><strong>Configurar conexão (<code>server/db.js</code>):</strong></p>
+                     <pre>{`const mysql = require('mysql2/promise')
+
+const pool = mysql.createPool({
+  host: 'e15',           // Servidor remoto
+  port: 3306,
+  database: 'dialcron1',
+  user: 'dialcron1',
+  password: '0c?£8Na.leP8',
+  waitForConnections: true,
+  connectionLimit: 10
+})
+
+async function query(sql, params = []) {
+  const [results] = await pool.execute(sql, params)
+  return results
+}
+
+module.exports = { query, pool }`}</pre>
+                     
+                     <p><strong>Exemplo de rota (<code>server/routes/medicos.js</code>):</strong></p>
+                     <pre>{`const express = require('express')
+const router = express.Router()
+const { query } = require('../db')
+
+// Listar médicos
+router.get('/todos', async (req, res) => {
+  const results = await query('SELECT * FROM MED_MEDICO')
+  res.json(results)
+})
+
+// Buscar por CRM
+router.get('/:crm', async (req, res) => {
+  const results = await query('SELECT * FROM MED_MEDICO WHERE NRO_CRM = ?', [req.params.crm])
+  res.json(results[0])
+})
+
+// Incluir
+router.post('/', async (req, res) => {
+  const { nome, crm } = req.body
+  await query('INSERT INTO MED_MEDICO (NOME, CRM) VALUES (?, ?)', [nome, crm])
+  res.status(201).json({ message: 'Cadastrado!' })
+})
+
+module.exports = router`}</pre>
+                     
+                     <p><strong>Registrar rotas (<code>server/index.js</code>):</strong></p>
+                     <pre>{`const express = require('express')
+const cors = require('cors')
+const medicosRouter = require('./routes/medicos')
+const especialidadesRouter = require('./routes/especialidades')
+
+const app = express()
+app.use(cors())
+app.use(express.json())
+
+app.use('/api/medicos', medicosRouter)
+app.use('/api/especialidades', especialidadesRouter)
+
+app.listen(3001, () => console.log('Servidor rodando na porta 3001'))`}</pre>
+                     
+                     <p className="doc-note">💡 O backend deve estar rodando para que as telas de cadastro funcionem.</p>
+                   </div>
+                 )}
+               </div>
 
               <div className="doc-section">
                 <button className="doc-header" onClick={() => toggleSection('dependencias')}>
@@ -435,21 +523,21 @@ export default function Menu({ onShowSobre }) {
                 )}
               </div>
 
-              <div className="doc-section">
-                <button className="doc-header" onClick={() => toggleSection('modalVsPagina')}>
-                  <span>3.6 Modal vs Página</span>
-                  <span className={`doc-arrow ${expandedSection === 'modalVsPagina' ? 'open' : ''}`}>▼</span>
-                </button>
-                {expandedSection === 'modalVsPagina' && (
-                  <div className="doc-content">
-                    <p><strong>📋 Conceito:</strong></p>
-                    <ul className="doc-list">
-                      <li><strong>Modal:</strong> Abre POR CIMA da página atual (pop-up). Fundo escuro atrás. Para ações temporárias.</li>
-                      <li><strong>Página:</strong> Substitui o conteúdo da tela. Ocupa o lugar da página atual. Para conteúdo completo.</li>
-                    </ul>
-                    
-                    <p><strong>CSS - Estilos da Página (NomePagina.css):</strong></p>
-                    <pre>{`.pagina-container {
+               <div className="doc-section">
+                 <button className="doc-header" onClick={() => toggleSection('modalVsPagina')}>
+                   <span>3.6 Modal vs Página</span>
+                   <span className={`doc-arrow ${expandedSection === 'modalVsPagina' ? 'open' : ''}`}>▼</span>
+                 </button>
+                 {expandedSection === 'modalVsPagina' && (
+                   <div className="doc-content">
+                     <p><strong>📋 Conceito:</strong></p>
+                     <ul className="doc-list">
+                       <li><strong>Modal:</strong> Abre POR CIMA da página atual (pop-up). Fundo escuro atrás. Para ações temporárias.</li>
+                       <li><strong>Página:</strong> Substitui o conteúdo da tela. Ocupa o lugar da página atual. Para conteúdo completo.</li>
+                     </ul>
+                     
+                     <p><strong>CSS - Estilos da Página (NomePagina.css):</strong></p>
+                     <pre>{`.pagina-container {
   padding: 90px 2rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -464,9 +552,9 @@ export default function Menu({ onShowSobre }) {
   margin-bottom: 1.5rem;
   text-align: center;
 }`}</pre>
-                    
-                    <p><strong>JSX - Como criar uma Página (Configuracao.jsx):</strong></p>
-                    <pre>{`import './Configuracao.css'
+                     
+                     <p><strong>JSX - Como criar uma Página (Configuracao.jsx):</strong></p>
+                     <pre>{`import './Configuracao.css'
 
 export default function Configuracao({ onClose }) {
   return (
@@ -476,9 +564,9 @@ export default function Configuracao({ onClose }) {
     </div>
   )
 }`}</pre>
-                    
-                    <p><strong>App.jsx - Ajustes necessários:</strong></p>
-                    <pre>{`// App.jsx
+                     
+                     <p><strong>App.jsx - Ajustes necessários:</strong></p>
+                     <pre>{`// App.jsx
 import React, { useState } from 'react'
 import Configuracao from './components/Configuracao/Configuracao'
 
@@ -495,9 +583,9 @@ function App() {
     </FundoInfinito>
   )
 }`}</pre>
-                    
-                    <p><strong>Menu.jsx - Ajustes necessários:</strong></p>
-                    <pre>{`// Menu.jsx
+                     
+                     <p><strong>Menu.jsx - Ajustes necessários:</strong></p>
+                     <pre>{`// Menu.jsx
 export default function Menu({ onNavigate }) {
   return (
     <nav className="menu-nav">
@@ -509,17 +597,140 @@ export default function Menu({ onNavigate }) {
     </nav>
   )
 }`}</pre>
-                    
-                    <p className="doc-note">💡 <strong>Resumo:</strong><br/>
-                    • <code>modal-overlay</code> + <code>modal-container</code> = Modal (pop-up)<br/>
-                    • <code>pagina-container</code> = Página (substitui conteúdo)</p>
-                  </div>
-                )}
-              </div>
+                     
+                     <p className="doc-note">💡 <strong>Resumo:</strong><br/>
+                     • <code>modal-overlay</code> + <code>modal-container</code> = Modal (pop-up)<br/>
+                     • <code>pagina-container</code> = Página (substitui conteúdo)</p>
+                   </div>
+                 )}
+               </div>
 
-            </div>
-          )}
-        </div>
+               <div className="doc-section">
+                 <button className="doc-header" onClick={() => toggleSection('criarCadastro')}>
+                   <span>3.7 Como Criar uma Tela de Cadastro</span>
+                   <span className={`doc-arrow ${expandedSection === 'criarCadastro' ? 'open' : ''}`}>▼</span>
+                 </button>
+                 {expandedSection === 'criarCadastro' && (
+                   <div className="doc-content">
+                     <p><strong>🎯 Objetivo:</strong> Criar uma tela completa de cadastro (ex: médicos, especialidades) com tabela, formulário e integração com banco de dados.</p>
+                     
+                     <p><strong>1. Frontend (React):</strong></p>
+                     <pre>{`// 1.1. Criar o arquivo JSx (ex: CadastroMedicos.jsx)
+import { useState, useEffect } from 'react'
+import './telasCadastros.css' // CSS unificado
+
+const API_URL = 'http://localhost:3001/api/medicos'
+
+export default function CadastroMedicos({ onClose }) {
+  const [registros, setRegistros] = useState([])
+  const [formData, setFormData] = useState({ id: '', nome: '' })
+  
+  // Carregar dados ao montar
+  useEffect(() => { carregarTodos() }, [])
+    
+  const carregarTodos = async () => {
+    const res = await fetch(\`\${API_URL}/todos\`)
+    setRegistros(await res.json())
+  }
+    
+  // Salvar (POST/PUT)
+  const handleSalvar = async (e) => {
+    e.preventDefault()
+    const method = editando ? 'PUT' : 'POST'
+    const url = editando ? \`\${API_URL}/\${formData.id}\` : API_URL
+    await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    })
+    await carregarTodos()
+  }
+
+  return (
+    <div className="cadmedico-container">
+      {/* Tabela + Formulário aqui */}
+    </div>
+  )
+}`}</pre>
+                     
+                     <p><strong>2. Backend (Node.js):</strong></p>
+                     <pre>{`// 2.1. Criar rota (server/routes/medicos.js)
+const express = require('express')
+const router = express.Router()
+const { query } = require('../db')
+
+// Listar todos
+router.get('/todos', async (req, res) => {
+  const results = await query('SELECT * FROM MED_MEDICO')
+  res.json(results)
+})
+
+// Buscar por ID
+router.get('/:id', async (req, res) => {
+  const results = await query('SELECT * FROM MED_MEDICO WHERE ID = ?', [req.params.id])
+  res.json(results[0])
+})
+
+// Incluir
+router.post('/', async (req, res) => {
+  const { nome } = req.body
+  await query('INSERT INTO MED_MEDICO (NOME) VALUES (?)', [nome])
+  res.status(201).json({ message: 'Cadastrado!' })
+})
+
+// Atualizar
+router.put('/:id', async (req, res) => {
+  const { nome } = req.body
+  await query('UPDATE MED_MEDICO SET NOME = ? WHERE ID = ?', [nome, req.params.id])
+  res.json({ message: 'Atualizado!' })
+})
+
+module.exports = router`}</pre>
+                     
+                     <p><strong>3. Conexão com Banco (server/db.js):</strong></p>
+                     <pre>{`const mysql = require('mysql2/promise')
+
+const pool = mysql.createPool({
+  host: 'e15',          // Servidor remoto
+  port: 3306,
+  database: 'dialcron1',
+  user: 'dialcron1',
+  password: '0c?£8Na.leP8',
+  waitForConnections: true,
+  connectionLimit: 10
+})
+
+async function query(sql, params = []) {
+  const [results] = await pool.execute(sql, params)
+  return results
+}
+
+module.exports = { query, pool }`}</pre>
+                     
+                     <p><strong>4. Registrar Rota (server/index.js):</strong></p>
+                     <pre>{`const medicosRouter = require('./routes/medicos')
+app.use('/api/medicos', medicosRouter)`}</pre>
+                     
+                     <p><strong>5. CSS Unificado (telasCadastros.css):</strong></p>
+                     <pre>{`/* Use um único CSS para todas as telas de cadastro */
+.cadmedico-container { /* Container principal */ }
+.tabela-wrapper { /* Tabela */ }
+.formulario-wrapper { /* Formulário */ }
+.form-group { /* Campos */ }
+.btn-salvar { /* Botão salvar */ }`}</pre>
+                     
+                     <p className="doc-note">💡 <strong>Resumo:</strong><br/>
+                     • Crie o <code>JSX</code> com tabela e form<br/>
+                     • Crie a <code>rota Node.js</code> (GET, POST, PUT, DELETE)<br/>
+                     • Configure o <code>db.js</code> com o banco remoto<br/>
+                     • Use um <code>CSS unificado</code> para manter padrão</p>
+                   </div>
+                 )}
+               </div>
+ 
+             </div>
+           )}
+         </div>
 
         <div className="doc-category">
           <button className="doc-category-header" onClick={() => toggleCategory('utilidades')}>

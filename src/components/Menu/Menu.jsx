@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './Menu.css'
 
-export default function Menu({ onShowDocumentacao, onShowSobre }) {
+export default function Menu({ onShowDocumentacao, onShowSobre, onShowCadastroMedicos, onShowCadastroEsp, onShowCadastroTipoAtendimento, onShowCadastroEmpresa, onShowCadastroUsuario}) {
   const [isOpen, setIsOpen] = useState(false)
   const [openSubmenu, setOpenSubmenu] = useState(null)
   const [openNestedSubmenu, setOpenNestedSubmenu] = useState(null)
@@ -61,12 +61,12 @@ export default function Menu({ onShowDocumentacao, onShowSobre }) {
             </a>
             <ul className={`submenu ${openSubmenu === 'configuracao' ? 'open' : ''}`}>
               <li>
-                <a onClick={() => scrollToSection('cadastro-empresa')}>
+                <a onClick={() => onShowCadastroEmpresa(true)}>
                 🏢 Cadastro Empresa
                 </a>
               </li>
               <li>
-                <a onClick={() => scrollToSection('cadastro-usuarios')}>
+                <a onClick={() => onShowCadastroUsuario(true)}>
                 👤 Cadastro usuários
                 </a>
               </li>
@@ -91,14 +91,19 @@ export default function Menu({ onShowDocumentacao, onShowSobre }) {
                 </a>
                 <ul className={`submenu submenu-right ${openNestedSubmenu === 'cadastros' ? 'open' : ''}`}>
                   <li>
-                    <a onClick={() => scrollToSection('atendimento-cadastro-medicos')}>
+                    <a onClick={() => onShowCadastroMedicos(true)}>
                     🥼 Cadastro de Médicos
                     </a>
                   </li>
                   <li>
-                    <a onClick={() => scrollToSection('atendimento-cadastros-especialidades')}>
-                      🏥 Cadastros de especialidades
-                    </a>
+                     <a onClick={() => onShowCadastroEsp(true)}>
+                       🏥 Cadastro de Especialidades
+                     </a>
+                  </li>
+                  <li>
+                     <a onClick={() => onShowCadastroTipoAtendimento(true)}>
+                       📋 Cadastro de Tipo de Atendimento
+                     </a>
                   </li>
                 </ul>
               </li>
