@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
-import './Menu.css'
+import '../../styles/Menu.css'
 
-export default function Menu({ onShowDocumentacao, onShowSobre, onShowCadastroMedicos, onShowCadastroEsp, onShowCadastroTipoAtendimento, onShowCadastroEmpresa, onShowCadastroUsuario}) {
+export default function Menu({ onShowDocumentacao, onShowSobre, onShowCadastroMedicos, onShowCadastroEsp, onShowCadastroTipoAtendimento, onShowCadastroEmpresa, onShowCadastroUsuario, onShowCadastroPaciente, onShowConsultaAgenda, onShowExportarBanco}) {
   const [isOpen, setIsOpen] = useState(false)
   const [openSubmenu, setOpenSubmenu] = useState(null)
   const [openNestedSubmenu, setOpenNestedSubmenu] = useState(null)
@@ -35,15 +35,6 @@ export default function Menu({ onShowDocumentacao, onShowSobre, onShowCadastroMe
     setOpenNestedSubmenu(openNestedSubmenu === 'cadastros' ? null : 'cadastros')
   }
 
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-      setOpenSubmenu(null)
-      setOpenNestedSubmenu(null)
-    }
-  }
-
   return (
     <div className="menu-topbar" ref={menuRef}>
       <div className="menu-logo">
@@ -70,6 +61,11 @@ export default function Menu({ onShowDocumentacao, onShowSobre, onShowCadastroMe
                 👤 Cadastro usuários
                 </a>
               </li>
+              <li>
+                <a onClick={() => onShowExportarBanco(true)}>
+                💾 Exportar Banco
+                </a>
+              </li>
               
             </ul>
           </li>
@@ -79,9 +75,10 @@ export default function Menu({ onShowDocumentacao, onShowSobre, onShowCadastroMe
               <span className={`submenu-arrow ${openSubmenu === 'atendimento' ? 'open' : ''}`}>▼</span>
             </a>
             <ul className={`submenu ${openSubmenu === 'atendimento' ? 'open' : ''}`}>
+
               <li>
-                <a onClick={() => scrollToSection('atendimento')}>
-                  📅 Agendar Consulta
+                <a onClick={() => onShowConsultaAgenda(true)}>
+                  📋 Consulta Agenda
                 </a>
               </li>
               <li className="submenu-container">  
@@ -100,11 +97,16 @@ export default function Menu({ onShowDocumentacao, onShowSobre, onShowCadastroMe
                        🏥 Cadastro de Especialidades
                      </a>
                   </li>
-                  <li>
-                     <a onClick={() => onShowCadastroTipoAtendimento(true)}>
-                       📋 Cadastro de Tipo de Atendimento
-                     </a>
-                  </li>
+              <li>
+                 <a onClick={() => onShowCadastroTipoAtendimento(true)}>
+                   📋 Cadastro de Tipo de Atendimento
+                 </a>
+              </li>
+              <li>
+                <a onClick={() => onShowCadastroPaciente(true)}>
+                  👤 Cadastro de Paciente
+                </a>
+              </li>
                 </ul>
               </li>
             </ul>
@@ -113,7 +115,7 @@ export default function Menu({ onShowDocumentacao, onShowSobre, onShowCadastroMe
             <a onClick={() => onShowSobre(true)}>ℹ️ Sobre</a>
           </li>
           <li>
-            <a onClick={() => onShowDocumentacao(true)}>📚 Documentação</a>
+            <a onClick={() => onShowDocumentacao(true)}>📘 Documentação</a>
           </li>
         </ul>
       </nav>

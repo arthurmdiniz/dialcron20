@@ -7,6 +7,8 @@ const tipoAtendimentoRouter = require('./routes/tipo-atendimento')
 const empresasRouter = require('./routes/empresas')
 const clientesRouter = require('./routes/clientes')
 const agendaRouter = require('./routes/agenda')
+const conveniosRouter = require('./routes/convenios')
+const exportarRouter = require('./routes/exportar')
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -21,6 +23,8 @@ app.use('/api/tipo-atendimento', tipoAtendimentoRouter)
 app.use('/api/empresas', empresasRouter)
 app.use('/api/clientes', clientesRouter)
 app.use('/api/agenda', agendaRouter)
+app.use('/api/convenios', conveniosRouter)
+app.use('/api/exportar', exportarRouter)
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })

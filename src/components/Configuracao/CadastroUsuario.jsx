@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import '../Atendimento/telasCadastros.css'
+import '../../styles/telasCadastros.css'
 
 const API_URL = 'http://localhost:3001/api/usuarios'
 
@@ -192,13 +192,16 @@ export default function CadastroUsuario({ onClose }) {
                 />
               </div>
 
-              <div className="form-group form-group-checkbox">
+              <div className="form-group form-group-toggle">
                 <label>Inativo:</label>
-                <input
-                  type="checkbox"
-                  checked={formData.ativo === 'N'}
-                  onChange={e => setFormData({...formData, ativo: e.target.checked ? 'N' : 'S'})}
-                />
+                <label className="toggle-switch">
+                  <input
+                    type="checkbox"
+                    checked={formData.ativo === 'N'}
+                    onChange={e => setFormData({...formData, ativo: e.target.checked ? 'N' : 'S'})}
+                  />
+                  <span className="toggle-slider"></span>
+                </label>
               </div>
             </div>
 

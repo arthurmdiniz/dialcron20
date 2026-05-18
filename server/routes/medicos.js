@@ -5,7 +5,7 @@ const { query } = require('../db')
 // Listar todos os médicos (incluindo inativos)
 router.get('/todos', async (req, res) => {
   try {
-    const sql = "SELECT NRO_CRM, NOME FROM MED_MEDICO ORDER BY NOME"
+    const sql = "SELECT ID, NRO_CRM, NOME FROM MED_MEDICO ORDER BY NOME"
     const results = await query(sql)
     res.json(results)
   } catch (error) {
@@ -16,7 +16,7 @@ router.get('/todos', async (req, res) => {
 // Listar médicos ativos
 router.get('/', async (req, res) => {
   try {
-    const sql = "SELECT NRO_CRM, NOME FROM MED_MEDICO WHERE ATIVO = 'S' ORDER BY NOME"
+    const sql = "SELECT ID, NRO_CRM, NOME FROM MED_MEDICO WHERE ATIVO = 'S' ORDER BY NOME"
     const results = await query(sql)
     res.json(results)
   } catch (error) {

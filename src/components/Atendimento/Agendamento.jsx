@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
-import './Agendamento.css'
+import '../../styles/Agendamento.css'
 
 export default function Agendamento() {
   const [data, setData] = useState(new Date())

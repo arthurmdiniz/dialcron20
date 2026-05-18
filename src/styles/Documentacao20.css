@@ -1,4 +1,4 @@
-.documentacao-container {
+.documentacao20-container {
   max-width: 90%;
   margin: 90px auto 50px;
   padding: 2rem;
@@ -14,7 +14,7 @@
   overflow-y: auto;
 }
 
-.doc-close-btn {
+.doc20-close-btn {
   position: fixed;
   top: 1rem;
   right: 1rem;
@@ -28,26 +28,33 @@
   z-index: 800;
 }
 
-.doc-close-btn:hover {
+.doc20-close-btn:hover {
   background: #1a5a8a;
 }
 
-.documentacao-container h1 {
+.documentacao20-container h1 {
   color: #277bbc;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   text-align: center;
   border-bottom: 2px solid #e0e0e0;
   padding-bottom: 1rem;
 }
 
-.doc-category {
+.doc20-subtitle {
+  text-align: center;
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.doc20-category {
   margin-bottom: 1rem;
   border: 2px solid #277bbc;
   border-radius: 8px;
   overflow: hidden;
 }
 
-.doc-category-header {
+.doc20-category-header {
   width: 100%;
   padding: 1rem 1.5rem;
   background: #277bbc;
@@ -63,20 +70,20 @@
   transition: background 0.3s ease;
 }
 
-.doc-category-header:hover {
+.doc20-category-header:hover {
   background: #1a5a8a;
 }
 
-.doc-category-header span:first-child {
+.doc20-category-header span:first-child {
   flex: 1;
 }
 
-.doc-category-content {
+.doc20-category-content {
   background: #f9f9f9;
   padding: 0.5rem;
 }
 
-.doc-section {
+.doc20-section {
   margin-bottom: 0.5rem;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
@@ -84,7 +91,7 @@
   background: white;
 }
 
-.doc-header {
+.doc20-header {
   width: 100%;
   padding: 0.75rem 1rem;
   background: #f5f5f5;
@@ -100,41 +107,41 @@
   transition: background 0.3s ease;
 }
 
-.doc-header:hover {
+.doc20-header:hover {
   background: #e8e8e8;
 }
 
-.doc-header span:first-child {
+.doc20-header span:first-child {
   flex: 1;
 }
 
-.doc-arrow {
+.doc20-arrow {
   font-size: 0.8rem;
   transition: transform 0.3s ease;
   margin-left: 1rem;
 }
 
-.doc-arrow.open {
+.doc20-arrow.open {
   transform: rotate(180deg);
 }
 
-.doc-content {
+.doc20-content {
   padding: 1rem;
   background: white;
   border-top: 1px solid #e0e0e0;
 }
 
-.doc-content p {
+.doc20-content p {
   margin-bottom: 0.75rem;
   color: #555;
   line-height: 1.6;
 }
 
-.doc-content strong {
+.doc20-content strong {
   color: #277bbc;
 }
 
-.doc-content code {
+.doc20-content code {
   background: #f5f5f5;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
@@ -142,7 +149,7 @@
   color: #e74c3c;
 }
 
-.doc-content pre {
+.doc20-content pre {
   background: #2d2d2d;
   color: #f8f8f2;
   padding: 1rem;
@@ -153,53 +160,76 @@
   margin: 0.75rem 0;
 }
 
-.doc-note {
+.doc20-note {
   background: #fff3cd;
   padding: 0.75rem 1rem;
   border-radius: 6px;
   border-left: 4px solid #ffc107;
 }
 
-.doc-list {
+.doc20-list {
   list-style: none;
   padding: 0;
   margin: 0.5rem 0;
 }
 
-.doc-list li {
+.doc20-list li {
   padding: 0.5rem 0;
   border-bottom: 1px solid #f0f0f0;
   color: #555;
 }
 
-.doc-list li:last-child {
+.doc20-list li:last-child {
   border-bottom: none;
 }
 
-.doc-table {
+.doc20-list-numbered {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+
+.doc20-list-numbered li {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0.5rem 0;
+  color: #555;
+}
+
+.doc20-list-numbered li:last-child {
+  border-bottom: none;
+}
+
+.doc20-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 0.5rem;
 }
 
-.doc-table th,
-.doc-table td {
+.doc20-table th,
+.doc20-table td {
   padding: 0.6rem 0.8rem;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
 }
 
-.doc-table th {
+.doc20-table th {
   background: #277bbc;
   color: white;
   font-weight: 600;
 }
 
-.doc-table td {
+.doc20-table td {
   color: #555;
 }
 
-.doc-table td:first-child {
+.doc20-table td:first-child {
   font-family: monospace;
   color: #e74c3c;
+}
+
+.doc20-swatch {
+  display: inline-block;
+  width: 30px;
+  height: 20px;
+  border-radius: 3px;
+  vertical-align: middle;
 }

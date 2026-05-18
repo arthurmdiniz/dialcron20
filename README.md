@@ -45,28 +45,27 @@ npm run build
 ```bash
 src/
 ├── components/
-│   ├── Menu/           ← Menu principal (barra superior)
-│   ├── Modal/          ← Componente reutilizável para popups
-│   ├── Documentacao/   ← Documentação completa
-│   ├── Configuracao/   ← Conteúdo do menu Configuração
-│   ├── Atendimento/    ← Cadastros (Médicos, Especialidades)
-│   │   ├── CadastroMedicos.jsx
-│   │   ├── CadastroEspecialidade.jsx
-│   │   └── telasCadastros.css ← CSS unificado
-│   └── Sobre/         ← Informações sobre o projeto
-├── main.jsx           ← Entry point
-├── App.jsx             ← Componente principal
-├── index.css           ← Estilos globais
-├── FundoInfinito.*    ← Background visual
-└── Agendamento.*     ← Página de agendamento
+│   ├── Menu/              ← Menu principal (barra superior)
+│   ├── Documentacao20/    ← Documentação completa (guia passo a passo)
+│   ├── Configuracao/      ← Conteúdo do menu Configuração
+│   ├── Atendimento/       ← Cadastros (Médicos, Especialidades, Pacientes)
+│   └── Sobre/             ← Informações sobre o projeto
+├── styles/                ← Arquivos CSS
+├── main.jsx               ← Entry point
+├── App.jsx                ← Componente principal
+├── index.css              ← Estilos globais
+└── FundoInfinito.*        ← Background visual
 
 server/
-├── db.js              ← Conexão MySQL (servidor E15)
-├── index.js           ← Servidor Express (porta 3001)
-├── package.json      ← Dependências do backend
-└── routes/
-    ├── medicos.js      ← Rotas para médicos
-    └── especialidades.js ← Rotas para especialidades
+├── db.js                  ← Conexão MySQL (servidor E15)
+├── index.js               ← Servidor Express (porta 3001)
+├── package.json           ← Dependências do backend
+└── routes/                ← Rotas da API
+    ├── medicos.js
+    ├── especialidades.js
+    ├── usuarios.js
+    ├── agenda.js
+    └── ...
 ```
 
 ---
@@ -99,7 +98,7 @@ server/
 1. **Agendamento** - Sistema de agendamento de consultas
 2. **Cadastro de Médicos** - CRUD completo com seleção de especialidades
 3. **Cadastro de Especialidades** - Gerenciamento de especialidades médicas
-4. **Documentação** - Guias completas (como criar menus, modais, páginas de cadastro, backend Node.js)
+4. **Documentação** - Guia completo passo a passo (arquitetura, cadastros, modais, API, banco, paleta de cores, fluxo completo)
 5. **Sobre** - Informações do projeto com tecnologias atualizadas
 
 ---
