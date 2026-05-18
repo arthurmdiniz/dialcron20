@@ -37,3 +37,19 @@
 .modal-close-btn:hover {
   background: #1a5a8a;
 }
+
+.modal-container .form-group input,
+.modal-container .form-group textarea {
+  height: 36px;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+.modal-container .form-group label {
+  font-size: 0.8rem;
+}
+
+.modal-container .form-group textarea {
+  height: auto;
+  min-height: 80px;
+}

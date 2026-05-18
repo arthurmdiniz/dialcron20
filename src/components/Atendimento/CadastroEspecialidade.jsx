@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import './telasCadastros.css'
+import '../../styles/telasCadastros.css'
 
 const API_URL = 'http://localhost:3001/api/especialidades'
 
@@ -129,13 +129,16 @@ export default function CadastroEspecialidade({ onClose }) {
               />
             </div>
 
-            <div className="form-group form-group-checkbox">
+            <div className="form-group form-group-toggle">
               <label>Ativo:</label>
-              <input 
-                type="checkbox" 
-                checked={formData.ativo === 'S'} 
-                onChange={e => setFormData({...formData, ativo: e.target.checked ? 'S' : 'N'})}
-              />
+              <label className="toggle-switch">
+                <input 
+                  type="checkbox"
+                  checked={formData.ativo === 'S'} 
+                  onChange={e => setFormData({...formData, ativo: e.target.checked ? 'S' : 'N'})}
+                />
+                <span className="toggle-slider"></span>
+              </label>
             </div>
 
             <div className="form-column">

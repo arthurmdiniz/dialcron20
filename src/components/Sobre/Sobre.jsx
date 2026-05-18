@@ -1,4 +1,4 @@
-import './Sobre.css'
+import '../../styles/Sobre.css'
 
 export default function Sobre({ onClose }) {
   return (

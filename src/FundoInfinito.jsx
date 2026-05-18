@@ -1,4 +1,4 @@
-import './FundoInfinito.css'
+import './styles/FundoInfinito.css'
 
 export default function FundoInfinito({ children }) {
   // Gerar muitas estrelas para cobrir toda a página

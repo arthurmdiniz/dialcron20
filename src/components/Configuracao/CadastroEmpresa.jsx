@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import './telasCadastros.css'
+import '../../styles/telasCadastros.css'
 
 const API_URL = 'http://localhost:3001/api/empresas'
 
@@ -31,6 +31,15 @@ export default function CadastroEmpresa({ onClose }) {
   const [sucesso, setSucesso] = useState('')
 
   const ufs = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO']
+
+  const formatCnpj = value => {
+    const digits = value.replace(/\D/g, '').slice(0, 14)
+    return digits
+      .replace(/^(\d{2})(\d)/, '$1.$2')
+      .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+      .replace(/\.(\d{3})(\d)/, '.$1/$2')
+      .replace(/(\d{4})(\d)/, '$1-$2')
+  }
 
   useEffect(() => { carregarTodos() }, [])
 
@@ -84,7 +93,7 @@ export default function CadastroEmpresa({ onClose }) {
         cliente: String(data.CLIENTE || ''),
         nomeFantasia: data.NOME_FANTASIA || '',
         razaoSocial: data.RAZAO_SOCIAL || '',
-        cnpj: data.CNPJ ? String(data.CNPJ) : '',
+        cnpj: data.CNPJ ? formatCnpj(String(data.CNPJ)) : '',
         ie: data.INSC_ESTADUAL ? String(data.INSC_ESTADUAL) : '',
         im: data.INSC_MUNICIPAL ? String(data.INSC_MUNICIPAL) : '',
         cep: data.CEP ? String(data.CEP) : '',
@@ -165,7 +174,7 @@ export default function CadastroEmpresa({ onClose }) {
         cliente: formData.cliente,
         nomeFantasia: formData.nomeFantasia,
         razaoSocial: formData.razaoSocial,
-        cnpj: formData.cnpj,
+        cnpj: formData.cnpj.replace(/\D/g, ''),
         inscEstadual: formData.ie,
         inscMunicipal: formData.im,
         cep: formData.cep,
@@ -269,17 +278,17 @@ export default function CadastroEmpresa({ onClose }) {
                 required 
               />
             </div>
-<div className="form-group">
+<div className="form-row-3">
+              <div className="form-group">
                 <label>CNPJ:</label>
                 <input 
                   type="text" 
                   value={formData.cnpj} 
-                  onChange={e => setFormData({...formData, cnpj: e.target.value})}
+                  placeholder="00.000.000/0000-00"
+                  onChange={e => setFormData({...formData, cnpj: formatCnpj(e.target.value)})}
                   required 
                 />
               </div>
-            <div className="form-row-3">
-              
 
               <div className="form-group">
                 <label>Insc. Estadual:</label>
