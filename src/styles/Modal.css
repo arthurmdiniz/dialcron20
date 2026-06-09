@@ -53,3 +53,71 @@
   height: auto;
   min-height: 80px;
 }
+
+/* ConsultaAgendamento */
+.consulta-modal {
+  width: 960px;
+  max-width: 960px;
+  padding: 1.5rem;
+}
+
+.consulta-modal h2 {
+  color: #277bbc;
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+}
+
+.consulta-modal fieldset {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.consulta-modal legend {
+  font-weight: 600;
+  color: #277bbc;
+  font-size: 0.95rem;
+}
+
+.consulta-modal .modal-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.consulta-modal .modal-table td {
+  padding: 0.25rem;
+  vertical-align: top;
+}
+
+.consulta-modal .modal-table label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.8rem;
+}
+
+.consulta-modal .modal-table input[readonly],
+.consulta-modal .modal-table textarea[readonly] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+  background: #f9f9f9;
+}
+
+.consulta-modal .modal-table input[readonly] {
+  height: 36px;
+}
+
+.consulta-modal .modal-table textarea[readonly] {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.consulta-modal .modal-table input.sexo-input {
+  text-align: center;
+}

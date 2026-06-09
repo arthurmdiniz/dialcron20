@@ -94,39 +94,31 @@ export default function ConsultaAgenda({ onClose }) {
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '0.8rem', flex: 1, minHeight: 0 }}>
-        <div className="tabela-wrapper" style={{ flex: 1, maxHeight: 'none' }}>
+      <div className="consulta-agenda-body">
+        <div className="consulta-agenda-table-wrapper">
           {carregando ? (
             <p>Carregando...</p>
           ) : (
-            <div style={{ overflowX: 'auto', overflowY: 'auto', maxHeight: 'calc(100vh - 200px)' }}>
+            <div className="consulta-agenda-scroll">
               <table className="agenda-tabela">
                 <thead>
                   <tr>
-                    <th style={{ minWidth: '60px', position: 'sticky', top: 0, zIndex: 2, background: '#f0f0f0' }}>HORÁRIO</th>
-                    {medicos.map((m, idx) => (
-                      <th key={m.ID} style={{ minWidth: '140px', position: 'sticky', top: 0, zIndex: 2, background: '#f0f0f0', borderRight: idx < medicos.length - 1 ? '2px solid #bbb' : 'none' }}>
-                        {m.NOME}
-                      </th>
+                    <th>HORÁRIO</th>
+                    {medicos.map(m => (
+                      <th key={m.ID}>{m.NOME}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {gerarHorarios().map(horario => (
                     <tr key={horario}>
-                      <td style={{ textAlign: 'center', fontWeight: 600, padding: '0.3rem', borderBottom: '1px solid #ddd', background: '#fafafa' }}>{horario}</td>
+                      <td>{horario}</td>
                       {medicos.map((m, idx) => {
                         const agendamentosCelula = getAgendamentoNaCelula(m.ID, horario)
                         return (
                           <td
                             key={`${m.ID}_${horario}`}
                             style={{
-                              padding: '0.3rem',
-                              borderBottom: '1px solid #ddd',
-                              borderRight: idx < medicos.length - 1 ? '2px solid #e0e0e0' : 'none',
-                              textAlign: 'center',
-                              cursor: 'pointer',
-                              height: '3.2rem',
                               background: agendamentosCelula.length > 0 ? getCorSituacao(agendamentosCelula[0].SITUACAO) : '#FFFFFF'
                             }}
                             onClick={() => {
@@ -150,9 +142,9 @@ export default function ConsultaAgenda({ onClose }) {
                             }
                           >
                             {agendamentosCelula.length > 0 ? (
-                              <div style={{ fontSize: '0.8rem', lineHeight: '1.3' }}>
+                              <div className="agenda-cell-content">
                                 <div>{agendamentosCelula[0].NOME_CLIENTE}</div>
-                                <div style={{ fontSize: '0.7rem', color: '#666' }}>
+                                <div className="agenda-cell-sub">
                                   {agendamentosCelula[0].DTA_NASCIMENTO ? (() => {
                                     const nasc = new Date(agendamentosCelula[0].DTA_NASCIMENTO)
                                     let idade = new Date().getFullYear() - nasc.getFullYear()
@@ -162,7 +154,7 @@ export default function ConsultaAgenda({ onClose }) {
                                   })() : `Id:${agendamentosCelula[0].ID}`}
                                 </div>
                               </div>
-                            ) : <div style={{ fontSize: '0.8rem', lineHeight: '1.3' }}>&nbsp;</div>}
+                            ) : <div className="agenda-cell-content">&nbsp;</div>}
                           </td>
                         )
                       })}
@@ -174,16 +166,16 @@ export default function ConsultaAgenda({ onClose }) {
           )}
         </div>
 
-        <div style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-          <div className="agenda-calendar" style={{ background: '#f5f5f5', padding: '0.6rem', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+        <div className="consulta-agenda-sidebar">
+          <div className="consulta-agenda-calendar-box">
             <Calendar value={dataSelecionada} onChange={setDataSelecionada} calendarType="gregory" />
           </div>
 
-          <div style={{ background: '#f9f9f9', padding: '0.8rem', borderRadius: '10px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ margin: '0 0 0.5rem', color: '#277bbc', fontSize: '1rem' }}>Legendas</h3>
+          <div className="consulta-agenda-legend-box">
+            <h3 className="consulta-agenda-legend-title">Legendas</h3>
             {Object.entries(STATUS).map(([sigla, { label, color }]) => (
-              <div key={sigla} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.3rem', fontSize: '0.9rem' }}>
-                <span style={{ display: 'inline-block', width: '16px', height: '16px', background: color, border: '1px solid #ccc', borderRadius: '3px' }}></span>
+              <div key={sigla} className="consulta-agenda-legend-item">
+                <span className="agenda-legend-color" style={{ background: color }}></span>
                 {label}
               </div>
             ))}
