@@ -68,10 +68,10 @@ export default function ConsultaAgendamento({ id, onClose }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-container" onClick={(e) => e.stopPropagation()} style={{ width: '960px', padding: '1.5rem' }}>
+      <div className="modal-container consulta-modal" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close-btn" onClick={onClose}>✕ Fechar</button>
 
-        <h2 style={{ color: '#277bbc', margin: '0 0 1rem', fontSize: '1.2rem' }}>
+        <h2>
           {carregando ? 'Carregando...' : dados ? `Consulta Agenda - ${dados.NOME_MEDICO}` : 'Agendamento não encontrado'}
         </h2>
 
@@ -81,63 +81,66 @@ export default function ConsultaAgendamento({ id, onClose }) {
           <p>Carregando...</p>
         ) : dados ? (
           <>
-            <fieldset style={{ border: '1px solid #ccc', borderRadius: '6px', padding: '1rem' }}>
-              <legend style={{ fontWeight: 600, color: '#277bbc', fontSize: '0.95rem' }}>Dados do Agendamento</legend>
+            <fieldset>
+              <legend>Dados do Agendamento</legend>
 
-              <div className="form-row">
-                <div className="form-group" style={{ flex: 0.3 }}>
-                  <label>ID:</label>
-                  <input type="text" value={dados.ID || ''} readOnly />
-                </div>
-                <div className="form-group" style={{ flex: 1.8 }}>
-                  <label>Nome:</label>
-                  <input type="text" value={dados.NOME_CLIENTE || ''} readOnly />
-                </div>
-                <div className="form-group" style={{ flex: 0.9 }}>
-                  <label>Data Agendamento:</label>
-                  <input type="text" value={formatarDataHora(dados.DTA_AGENDAMENTO)} readOnly />
-                </div>
-              </div>
+              <table className="modal-table">
 
-              <div className="form-row">
-                <div className="form-group" style={{ flex: 1.2 }}>
-                  <label>Data Nascimento:</label>
-                  <input type="text" value={`${formatarData(dados.DTA_NASCIMENTO)} ${calcularIdade(dados.DTA_NASCIMENTO)}`} readOnly />
-                </div>
-                <div className="form-group" style={{ flex: 0.3 }}>
-                  <label>Sexo:</label>
-                  <input type="text" value={dados.SEXO || ''} readOnly style={{ textAlign: 'center' }} />
-                </div>
-                <div className="form-group" style={{ flex: 0.8 }}>
-                  <label>Telefone:</label>
-                  <input type="text" value={dados.TELEFONE_DDD ? `(${dados.TELEFONE_DDD}) ${dados.TELEFONE}` : ''} readOnly />
-                </div>
-                <div className="form-group" style={{ flex: 0.8 }}>
-                  <label>Celular:</label>
-                  <input type="text" value={dados.CELULAR_DDD ? `(${dados.CELULAR_DDD}) ${dados.CELULAR}` : ''} readOnly />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group" style={{ flex: 1 }}>
-                  <label>Convênio:</label>
-                  <input type="text" value={dados.DES_CONVENIO || ''} readOnly />
-                </div>
-                <div className="form-group" style={{ flex: 1 }}>
-                  <label>Especialidade:</label>
-                  <input type="text" value={dados.DES_ESPECIALIDADE || ''} readOnly />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label>Observações:</label>
-                <textarea
-                  value={dados.OBSERVACAO || ''}
-                  readOnly
-                  rows={4}
-                  style={{ width: '100%', padding: '0.6rem', border: '2px solid #ddd', borderRadius: '5px', resize: 'vertical', boxSizing: 'border-box', fontSize: '0.9rem', background: '#f9f9f9', minHeight: '80px' }}
-                />
-              </div>
+                <tbody>
+                  <tr>
+                    <td colSpan={2}>
+                      <label>ID:</label>
+                      <input type="text" value={dados.ID || ''} readOnly />
+                    </td>
+                    <td colSpan={6}>
+                      <label>Nome:</label>
+                      <input type="text" value={dados.NOME_CLIENTE || ''} readOnly />
+                    </td>
+                    <td colSpan={4}>
+                      <label>Data Agendamento:</label>
+                      <input type="text" value={formatarDataHora(dados.DTA_AGENDAMENTO)} readOnly />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={4}>
+                      <label>Data Nascimento:</label>
+                      <input type="text" value={`${formatarData(dados.DTA_NASCIMENTO)} ${calcularIdade(dados.DTA_NASCIMENTO)}`} readOnly />
+                    </td>
+                    <td colSpan={2}>
+                      <label>Sexo:</label>
+                      <input type="text" value={dados.SEXO || ''} readOnly className="sexo-input" />
+                    </td>
+                    <td colSpan={3}>
+                      <label>Telefone:</label>
+                      <input type="text" value={dados.TELEFONE_DDD ? `(${dados.TELEFONE_DDD}) ${dados.TELEFONE}` : ''} readOnly />
+                    </td>
+                    <td colSpan={3}>
+                      <label>Celular:</label>
+                      <input type="text" value={dados.CELULAR_DDD ? `(${dados.CELULAR_DDD}) ${dados.CELULAR}` : ''} readOnly />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={6}>
+                      <label>Convênio:</label>
+                      <input type="text" value={dados.DES_CONVENIO || ''} readOnly />
+                    </td>
+                    <td colSpan={6}>
+                      <label>Especialidade:</label>
+                      <input type="text" value={dados.DES_ESPECIALIDADE || ''} readOnly />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan={12}>
+                      <label>Observações:</label>
+                      <textarea
+                        value={dados.OBSERVACAO || ''}
+                        readOnly
+                        rows={4}
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </fieldset>
           </>
         ) : (

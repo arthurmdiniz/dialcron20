@@ -37,7 +37,7 @@ router.get('/:id', async (req, res) => {
        FROM MED_AGENDA a
        INNER JOIN MED_MEDICO m ON a.MEDICO = m.ID
        INNER JOIN GER_CLIENTE c ON a.CLIENTE = c.CLIENTE
-       INNER JOIN MED_ESPECIALIDADE e ON a.ESPECIALIDADE = e.ID
+       LEFT JOIN MED_ESPECIALIDADE e ON a.ESPECIALIDADE = e.ID
        LEFT JOIN MED_CONVENIO v ON a.CONVENIO = v.ID
        WHERE a.ID = ?`,
       [req.params.id]

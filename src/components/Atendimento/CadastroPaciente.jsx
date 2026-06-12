@@ -163,8 +163,7 @@ export default function CadastroPaciente({ onClose }) {
           <div className="tabela">
             <div className="tabela-linha tabela-cabecalho">
               <div className="tabela-celula">Código</div>
-              <div className="tabela-celula">Nome</div>
-              <div className="tabela-celula">CPF/CNPJ</div>
+              <div className="tabela-celula">Nome</div>              
             </div>
 
             {carregando ? (
@@ -173,8 +172,7 @@ export default function CadastroPaciente({ onClose }) {
               registros.map((reg) => (
                 <div key={reg.CLIENTE} className="tabela-linha" onClick={() => handleEditar(reg)} style={{ cursor: 'pointer' }}>
                   <div className="tabela-celula">{reg.CLIENTE}</div>
-                  <div className="tabela-celula">{reg.NOME}</div>
-                  <div className="tabela-celula">{reg.CPF_CNPJ}</div>
+                  <div className="tabela-celula">{reg.NOME}</div>            
                 </div>
               ))
             )}
