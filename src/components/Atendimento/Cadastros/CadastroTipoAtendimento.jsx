@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import '../../styles/telasCadastros.css'
+import '../../../styles/telasCadastros.css'
 
 const API_URL = 'http://localhost:3001/api/tipo-atendimento'
 
@@ -82,8 +82,8 @@ export default function CadastroTipoAtendimento({ onClose }) {
   }
 
   return (
-      <div className="cadastro-especialidade-container">
-        <div className="cadmedico-header">
+      <div className="cadastro-container">
+        <div className="cadastro-header">
           <h1>Cadastro de Tipo de Atendimento</h1>
           <div className="header-right">
             {sucesso && <div className="mensagem-sucesso">{sucesso}</div>}
@@ -93,25 +93,28 @@ export default function CadastroTipoAtendimento({ onClose }) {
 
         {erro && <div className="mensagem-erro">{erro}</div>}
 
-      <div className="cadastrosmedicos-content">
-        {/* Tabela */}
+      <div className="cadastro-content">
         <div className="tabela-wrapper">
-          <div className="tabela">
-            <div className="tabela-linha tabela-cabecalho">
-              <div className="tabela-celula">ID</div>
-              <div className="tabela-celula">Descrição</div>
-            </div>
-
-            {carregando ? <p>Carregando...</p> : registros.map(reg => (
-              <div key={reg.ID} className="tabela-linha" onClick={() => handleEditar(reg)} style={{cursor:'pointer'}}>
-                <div className="tabela-celula">{reg.ID}</div>
-                <div className="tabela-celula">{reg.DES_ATENDIMENTO}</div>
-              </div>
-            ))}
-          </div>
+          <table className="tabela">
+            <thead>
+              <tr className="tabela-cabecalho">
+                <th className="tabela-celula">ID</th>
+                <th className="tabela-celula">Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              {carregando ? (
+                <tr><td className="tabela-celula" colSpan="2">Carregando...</td></tr>
+              ) : registros.map(reg => (
+                <tr key={reg.ID} className="tabela-linha" onClick={() => handleEditar(reg)}>
+                  <td className="tabela-celula">{reg.ID}</td>
+                  <td className="tabela-celula">{reg.DES_ATENDIMENTO}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        {/* Formulário */}
         <div className="formulario-wrapper">
           <h2>{editando ? 'Editar' : 'Novo Cadastro'}</h2>
           <form className="formulario" onSubmit={handleSalvar}>

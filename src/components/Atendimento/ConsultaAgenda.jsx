@@ -85,8 +85,8 @@ export default function ConsultaAgenda({ onClose }) {
   }
 
   return (
-    <div className="cadmedico-container">
-      <div className="cadmedico-header">
+    <div className="cadastro-container">
+      <div className="cadastro-header">
         <h1>Consulta Agenda - {formatarDataBR(dataSelecionada)}</h1>
         <div className="header-right">
           {erro && <div className="mensagem-erro">{erro}</div>}

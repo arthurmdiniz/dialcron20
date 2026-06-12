@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import '../../styles/telasCadastros.css'
+import '../../../styles/telasCadastros.css'
 
 const API_URL = 'http://localhost:3001/api/medicos'
 
@@ -186,8 +186,8 @@ export default function CadastroMedicos({ onClose }) {
   }
 
   return (
-    <div className="cadmedico-container">
-      <div className="cadmedico-header">
+    <div className="cadastro-container">
+      <div className="cadastro-header">
         <h1>Cadastro de Médicos</h1>
         <div className="header-right">
           {sucesso && <div className="mensagem-sucesso">{sucesso}</div>}
@@ -197,25 +197,28 @@ export default function CadastroMedicos({ onClose }) {
 
       {erro && <div className="mensagem-erro">{erro}</div>}
 
-      <div className="cadastrosmedicos-content">
+      <div className="cadastro-content">
         <div className="tabela-wrapper">
-          <div className="tabela">
-            <div className="tabela-linha tabela-cabecalho">
-              <div className="tabela-celula">CRM</div>
-              <div className="tabela-celula">Nome</div>
-            </div>
-
-            {carregando ? (
-              <p>Carregando...</p>
-            ) : (
-              registros.map((reg) => (
-                <div key={reg.NRO_CRM} className="tabela-linha" onClick={() => handleEditar(reg)} style={{cursor:'pointer'}}>
-                  <div className="tabela-celula">{reg.UF_CRM ? `${reg.UF_CRM}/${reg.NRO_CRM}` : reg.NRO_CRM}</div>
-                  <div className="tabela-celula">{reg.NOME}</div>
-                </div>
-              ))
-            )}
-          </div>
+          <table className="tabela">
+            <thead>
+              <tr className="tabela-cabecalho">
+                <th className="tabela-celula">CRM</th>
+                <th className="tabela-celula">Nome</th>
+              </tr>
+            </thead>
+            <tbody>
+              {carregando ? (
+                <tr><td className="tabela-celula" colSpan="2">Carregando...</td></tr>
+              ) : (
+                registros.map((reg) => (
+                  <tr key={reg.NRO_CRM} className="tabela-linha" onClick={() => handleEditar(reg)}>
+                    <td className="tabela-celula">{reg.UF_CRM ? `${reg.UF_CRM}/${reg.NRO_CRM}` : reg.NRO_CRM}</td>
+                    <td className="tabela-celula">{reg.NOME}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
 
         <div className="formulario-wrapper">
@@ -223,10 +226,10 @@ export default function CadastroMedicos({ onClose }) {
 
           <form className="formulario" onSubmit={handleSalvar}>
             <div className="form-row">
-              <div className="form-group" style={{ flex: 1 }}>
+              <div className="form-group form-group-flex">
                 <label>CRM:</label>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <select name="ufCRM" value={formData.ufCRM} onChange={handleChange} style={{ width: '60px' }} required>
+                <div className="input-group-row">
+                  <select name="ufCRM" value={formData.ufCRM} onChange={handleChange} className="input-uf" required>
                     <option value="">UF</option>
                     <option value="AC">AC</option>
                     <option value="AL">AL</option>
@@ -258,12 +261,12 @@ export default function CadastroMedicos({ onClose }) {
                   </select>
                   <input
                     type="number" name="nroCRM" value={formData.nroCRM}
-                    onChange={handleChange} placeholder="Número" style={{ flex: 1 }} required
+                    onChange={handleChange} placeholder="Número" className="input-flex" required
                   />
                 </div>
               </div>
 
-              <div className="form-group" style={{ flex: 1 }}>
+              <div className="form-group form-group-flex">
                 <label>Cliente:</label>
                 <input type="number" name="cliente" value={formData.cliente} onChange={handleChange} required />
               </div>
@@ -287,40 +290,39 @@ export default function CadastroMedicos({ onClose }) {
             </div>
 
             <div className="form-row">
-              <div className="form-group" style={{ flex: 1 }}>
+              <div className="form-group form-group-flex">
                 <label>Telefone:</label>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <input type="number" name="dddTelefone" value={formData.dddTelefone} onChange={handleChange} placeholder="DDD" style={{ width: '70px' }} />
-                  <input type="number" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="Número" style={{ flex: 1 }} />
+                <div className="input-group-row">
+                  <input type="number" name="dddTelefone" value={formData.dddTelefone} onChange={handleChange} placeholder="DDD" className="input-ddd" required />
+                  <input type="number" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="Número" className="input-flex" required />
                 </div>
               </div>
 
-              <div className="form-group" style={{ flex: 1 }}>
+              <div className="form-group form-group-flex">
                 <label>Celular:</label>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <input type="number" name="dddCelular" value={formData.dddCelular} onChange={handleChange} placeholder="DDD" style={{ width: '70px' }} />
-                  <input type="number" name="celular" value={formData.celular} onChange={handleChange} placeholder="Número" style={{ flex: 1 }} />
+                <div className="input-group-row">
+                  <input type="number" name="dddCelular" value={formData.dddCelular} onChange={handleChange} placeholder="DDD" className="input-ddd" required />
+                  <input type="number" name="celular" value={formData.celular} onChange={handleChange} placeholder="Número" className="input-flex" required />
                 </div>
               </div>
 
-              <div className="form-group" style={{ flex: 1 }}>
+              <div className="form-group form-group-flex">
                 <label>Outros:</label>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                  <input type="number" name="dddOutros" value={formData.dddOutros} onChange={handleChange} placeholder="DDD" style={{ width: '70px' }} />
-                  <input type="number" name="telefoneOutros" value={formData.telefoneOutros} onChange={handleChange} placeholder="Número" style={{ flex: 1 }} />
+                <div className="input-group-row">
+                  <input type="number" name="dddOutros" value={formData.dddOutros} onChange={handleChange} placeholder="DDD" className="input-ddd" required />
+                  <input type="number" name="telefoneOutros" value={formData.telefoneOutros} onChange={handleChange} placeholder="Número" className="input-flex" required />
                 </div>
               </div>
             </div>
 
             <div className="form-column">
-              <button type="button" className="btn-novo" onClick={handleNovo} style={{marginRight:'0.5rem'}}>Novo Cadastro</button>
+              <button type="button" className="btn-novo" onClick={handleNovo}>Novo Cadastro</button>
               <button type="submit" className="btn-salvar">
                 {editando ? 'Atualizar' : 'Cadastrar'}
               </button>
             </div>
           </form>
 
-          {/* Seção de Especialidades */}
           {editando && (
             <div className="especialidades-wrapper">
               <h3>Especialidades do Médico</h3>
@@ -332,7 +334,6 @@ export default function CadastroMedicos({ onClose }) {
                       key={esp.ID}
                       className={`especialidade-item ${selecionada ? 'selecionada' : ''}`}
                       onClick={() => toggleEspecialidade(esp.ID)}
-                      style={{cursor:'pointer'}}
                     >
                       {esp.DES_ESPECIALIDADE}
                     </div>

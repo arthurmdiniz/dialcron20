@@ -42,6 +42,3 @@ src/
 ```
 
 ---
-
-## Contato
-Arthur / Dialcron

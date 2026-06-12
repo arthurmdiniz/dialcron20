@@ -69,15 +69,17 @@ export default function Documentacao20({ onClose }) {
 │   ├── Documentacao20/         ← Documentação versão 2.0 (esta)
 │   ├── Sobre/Sobre.jsx         ← Modal "Sobre"
 │   ├── Atendimento/            ← Telas de atendimento
-│   │   ├── CadastroMedicos.jsx
-│   │   ├── CadastroPaciente.jsx
-│   │   ├── CadastroEspecialidade.jsx
-│   │   ├── CadastroTipoAtendimento.jsx
+│   │   ├── Cadastros/             ← Telas de cadastro
+│   │   │   ├── CadastroMedicos.jsx
+│   │   │   ├── CadastroPaciente.jsx
+│   │   │   ├── CadastroEspecialidade.jsx
+│   │   │   └── CadastroTipoAtendimento.jsx
 │   │   ├── ConsultaAgenda.jsx
 │   │   └── NovoAgendamento.jsx
 │   └── Configuracao/           ← Telas de configuração
-│       ├── CadastroEmpresa.jsx
-│       ├── CadastroUsuario.jsx
+│       ├── Cadastros/             ← Telas de cadastro
+│       │   ├── CadastroEmpresa.jsx
+│       │   └── CadastroUsuario.jsx
 │       └── ExportarBanco.jsx
 ├── styles/                     ← Arquivos CSS
 │   ├── index.css               ← Estilos globais
@@ -204,18 +206,18 @@ Resposta volta: SQL → JSON → frontend → tela`}</pre>
                         <tr><th>Classe CSS</th><th>O que faz</th></tr>
                       </thead>
                       <tbody>
-                        <tr><td><code>.cadmedico-container</code></td><td>Container principal da tela de cadastro (margem, fundo branco, flex)</td></tr>
-                        <tr><td><code>.cadmedico-header</code></td><td>Cabeçalho com título e botão fechar (flex, space-between)</td></tr>
+                        <tr><td><code>.cadastro-container</code></td><td>Container principal da tela de cadastro (margem, fundo branco, flex)</td></tr>
+                        <tr><td><code>.cadastro-header</code></td><td>Cabeçalho com título e botão fechar (flex, space-between)</td></tr>
                         <tr><td><code>.header-right</code></td><td>Agrupa botões à direita do header</td></tr>
                         <tr><td><code>.btn-fechar</code></td><td>Botão X vermelho para fechar</td></tr>
                         <tr><td><code>.mensagem-erro</code></td><td>Mensagem de erro (fundo rosa)</td></tr>
                         <tr><td><code>.mensagem-sucesso</code></td><td>Mensagem de sucesso (fundo verde)</td></tr>
-                        <tr><td><code>.cadastrosmedicos-content</code></td><td>Grid com duas colunas: tabela + formulário</td></tr>
+                        <tr><td><code>.cadastro-content</code></td><td>Grid com duas colunas: tabela + formulário</td></tr>
                         <tr><td><code>.tabela-wrapper</code></td><td>Wrapper da tabela (com scroll)</td></tr>
                         <tr><td><code>.tabela-header</code></td><td>Cabeçalho da tabela com botão "Novo"</td></tr>
                         <tr><td><code>.btn-novo</code></td><td>Botão "Novo Cadastro" (azul)</td></tr>
                         <tr><td><code>.tabela</code></td><td>Container da tabela</td></tr>
-                        <tr><td><code>.tabela-linha</code></td><td>Cada linha da tabela (grid)</td></tr>
+                        <tr><td><code>.tabela-linha</code></td><td>Cada linha da tabela (cursor pointer, hover)</td></tr>
                         <tr><td><code>.tabela-cabecalho</code></td><td>Linha de cabeçalho da tabela (sticky)</td></tr>
                         <tr><td><code>.tabela-celula</code></td><td>Cada célula na linha</td></tr>
                         <tr><td><code>.tabela-acoes</code></td><td>Container dos botões editar/excluir</td></tr>
@@ -252,11 +254,11 @@ Resposta volta: SQL → JSON → frontend → tela`}</pre>
                     <p>O sistema já tem suporte a mobile via media queries:</p>
                     <pre>{`/* Em telas menores que 768px (celular): */
 @media (max-width: 768px) {
-  .cadastrosmedicos-content {
+  .cadastro-content {
     grid-template-columns: 1fr;    /* empilha tabela e form */
   }
-  .tabela-linha {
-    grid-template-columns: 1fr;    /* cada campo em sua linha */
+  .tabela-celula {
+    display: block;                /* cada campo em sua linha */
   }
   .tabela-cabecalho {
     display: none;                 /* esconde cabeçalho da tabela */
@@ -399,8 +401,8 @@ export default function CadastroExemplo({ onClose }) {
   // ========== RENDERIZAÇÃO ==========
 
   return (
-    <div className="cadmedico-container">
-      <div className="cadmedico-header">
+    <div className="cadastro-container">
+      <div className="cadastro-header">
         <h1>Cadastro de Exemplo</h1>
         <div className="header-right">
           {sucesso && <div className="mensagem-sucesso">{sucesso}</div>}
@@ -410,34 +412,40 @@ export default function CadastroExemplo({ onClose }) {
 
       {erro && <div className="mensagem-erro">{erro}</div>}
 
-      <div className="cadastrosmedicos-content">
+      <div className="cadastro-content">
         {/* ===== TABELA ===== */}
         <div className="tabela-wrapper">
           <div className="tabela-header">
             <h2>Registros</h2>
             <button className="btn-novo" onClick={handleNovo}>+ Novo</button>
           </div>
-          <div className="tabela">
-            <div className="tabela-linha tabela-cabecalho">
-              <div className="tabela-celula">ID</div>
-              <div className="tabela-celula">Nome</div>
-              <div className="tabela-celula">Ações</div>
-            </div>
-            {carregando ? (
-              <p>Carregando...</p>
-            ) : (
-              registros.map((reg) => (
-                <div key={reg.ID} className="tabela-linha">
-                  <div className="tabela-celula">{reg.ID}</div>
-                  <div className="tabela-celula">{reg.NOME}</div>
-                  <div className="tabela-acoes">
-                    <button className="btn-editar" onClick={() => handleEditar(reg)}>Editar</button>
-                    <button className="btn-excluir" onClick={() => handleExcluir(reg.ID)}>Excluir</button>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
+          <table className="tabela">
+            <thead>
+              <tr className="tabela-cabecalho">
+                <th className="tabela-celula">ID</th>
+                <th className="tabela-celula">Nome</th>
+                <th className="tabela-celula">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {carregando ? (
+                <tr><td className="tabela-celula" colSpan="3">Carregando...</td></tr>
+              ) : (
+                registros.map((reg) => (
+                  <tr key={reg.ID} className="tabela-linha">
+                    <td className="tabela-celula">{reg.ID}</td>
+                    <td className="tabela-celula">{reg.NOME}</td>
+                    <td className="tabela-celula">
+                      <div className="tabela-acoes">
+                        <button className="btn-editar" onClick={() => handleEditar(reg)}>Editar</button>
+                        <button className="btn-excluir" onClick={() => handleExcluir(reg.ID)}>Excluir</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
 
         {/* ===== FORMULÁRIO ===== */}
@@ -615,44 +623,50 @@ export default function Menu({ ..., onShowCadastroExemplo }) {
                 </button>
                 {expandedSection === 'cadastroTabela' && (
                   <div className="doc20-content">
-                    <p><strong>Mais colunas na tabela:</strong> Basta adicionar mais <code>.tabela-celula</code> no cabeçalho e nos dados.</p>
+                    <p><strong>Mais colunas na tabela:</strong> Basta adicionar mais <code>&lt;th&gt;</code> e <code>&lt;td&gt;</code>.</p>
                     <pre>{`/* Cabeçalho com 4 colunas */
-<div className="tabela-linha tabela-cabecalho">
-  <div className="tabela-celula">ID</div>
-  <div className="tabela-celula">Nome</div>
-  <div className="tabela-celula">Email</div>
-  <div className="tabela-celula">Ações</div>
-</div>
-
-/* Dados - mesma quantidade de colunas */
-{registros.map((reg) => (
-  <div key={reg.ID} className="tabela-linha">
-    <div className="tabela-celula">{reg.ID}</div>
-    <div className="tabela-celula">{reg.NOME}</div>
-    <div className="tabela-celula">{reg.EMAIL}</div>
-    <div className="tabela-acoes">
-      <button className="btn-editar" onClick={() => handleEditar(reg)}>Editar</button>
-      <button className="btn-excluir" onClick={() => handleExcluir(reg.ID)}>Excluir</button>
-    </div>
-  </div>
-))}`}</pre>
+<table className="tabela">
+  <thead>
+    <tr className="tabela-cabecalho">
+      <th className="tabela-celula">ID</th>
+      <th className="tabela-celula">Nome</th>
+      <th className="tabela-celula">Email</th>
+      <th className="tabela-celula">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {registros.map((reg) => (
+      <tr key={reg.ID} className="tabela-linha">
+        <td className="tabela-celula">{reg.ID}</td>
+        <td className="tabela-celula">{reg.NOME}</td>
+        <td className="tabela-celula">{reg.EMAIL}</td>
+        <td className="tabela-celula">
+          <div className="tabela-acoes">
+            <button className="btn-editar" onClick={() => handleEditar(reg)}>Editar</button>
+            <button className="btn-excluir" onClick={() => handleExcluir(reg.ID)}>Excluir</button>
+          </div>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>}`}</pre>
 
                     <p><strong>Exibir dados formatados na tabela:</strong></p>
                     <pre>{`/* Formatar data */
-<div className="tabela-celula">
+<td className="tabela-celula">
   {new Date(reg.DATA_CADASTRO).toLocaleDateString('pt-BR')}
-</div>
+</td>
 
 /* Mostrar cor baseada no valor */
-<div className="tabela-celula" style={{
+<td className="tabela-celula" style={{
   color: reg.ATIVO === 'S' ? '#4caf50' : '#f44336',
   fontWeight: 'bold'
 }}>
   {reg.ATIVO === 'S' ? 'Ativo' : 'Inativo'}
-</div>
+</td>
 
 /* Mostrar status com cor de fundo */
-<div className="tabela-celula">
+<td className="tabela-celula">
   <span style={{
     background: reg.STATUS === 'OK' ? '#e8f5e9' : '#ffebee',
     color: reg.STATUS === 'OK' ? '#2e7d32' : '#c62828',
@@ -662,7 +676,7 @@ export default function Menu({ ..., onShowCadastroExemplo }) {
     {reg.STATUS}
   </span>
 </div>`}</pre>
-                    <p className="doc20-note">💡 A classe <code>.tabela-linha</code> usa <code>grid-template-columns</code>. Se adicionar mais colunas, ajuste no CSS ou use <code>style</code> inline.</p>
+                    <p className="doc20-note">💡 Agora usamos <code>&lt;table&gt;</code> nativo. As colunas se ajustam automaticamente ao conteúdo.</p>
                   </div>
                 )}
               </div>
@@ -1485,8 +1499,8 @@ export default function CadastroCategorias({ onClose }) {
   }
 
   return (
-    <div className="cadmedico-container">
-      <div className="cadmedico-header">
+    <div className="cadastro-container">
+      <div className="cadastro-header">
         <h1>📂 Cadastro de Categorias</h1>
         <div className="header-right">
           {sucesso && <div className="mensagem-sucesso">{sucesso}</div>}
@@ -1496,35 +1510,41 @@ export default function CadastroCategorias({ onClose }) {
 
       {erro && <div className="mensagem-erro">{erro}</div>}
 
-      <div className="cadastrosmedicos-content">
+      <div className="cadastro-content">
         <div className="tabela-wrapper">
           <div className="tabela-header">
             <h2>Categorias</h2>
             <button className="btn-novo" onClick={handleNovo}>+ Nova</button>
           </div>
-          <div className="tabela">
-            <div className="tabela-linha tabela-cabecalho">
-              <div className="tabela-celula">ID</div>
-              <div className="tabela-celula">Nome</div>
-              <div className="tabela-celula">Descrição</div>
-              <div className="tabela-celula">Ações</div>
-            </div>
-            {carregando ? (
-              <p>Carregando...</p>
-            ) : (
-              registros.map((reg) => (
-                <div key={reg.ID} className="tabela-linha">
-                  <div className="tabela-celula">{reg.ID}</div>
-                  <div className="tabela-celula">{reg.NOME}</div>
-                  <div className="tabela-celula">{reg.DESCRICAO || '-'}</div>
-                  <div className="tabela-acoes">
-                    <button className="btn-editar" onClick={() => handleEditar(reg)}>Editar</button>
-                    <button className="btn-excluir" onClick={() => handleExcluir(reg.ID)}>Desativar</button>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
+          <table className="tabela">
+            <thead>
+              <tr className="tabela-cabecalho">
+                <th className="tabela-celula">ID</th>
+                <th className="tabela-celula">Nome</th>
+                <th className="tabela-celula">Descrição</th>
+                <th className="tabela-celula">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {carregando ? (
+                <tr><td className="tabela-celula" colSpan="4">Carregando...</td></tr>
+              ) : (
+                registros.map((reg) => (
+                  <tr key={reg.ID} className="tabela-linha">
+                    <td className="tabela-celula">{reg.ID}</td>
+                    <td className="tabela-celula">{reg.NOME}</td>
+                    <td className="tabela-celula">{reg.DESCRICAO || '-'}</td>
+                    <td className="tabela-celula">
+                      <div className="tabela-acoes">
+                        <button className="btn-editar" onClick={() => handleEditar(reg)}>Editar</button>
+                        <button className="btn-excluir" onClick={() => handleExcluir(reg.ID)}>Desativar</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
 
         <div className="formulario-wrapper">

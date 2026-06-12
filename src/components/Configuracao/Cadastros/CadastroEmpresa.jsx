@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import '../../styles/telasCadastros.css'
+import '../../../styles/telasCadastros.css'
 
 const API_URL = 'http://localhost:3001/api/empresas'
 
@@ -211,8 +211,8 @@ export default function CadastroEmpresa({ onClose }) {
   }
 
   return (
-    <div className="cadastro-especialidade-container">
-      <div className="cadmedico-header">
+    <div className="cadastro-container">
+      <div className="cadastro-header">
         <h1>Cadastro de Empresa</h1>
         <div className="header-right">
           {sucesso && <div className="mensagem-sucesso">{sucesso}</div>}
@@ -222,21 +222,26 @@ export default function CadastroEmpresa({ onClose }) {
 
       {erro && <div className="mensagem-erro">{erro}</div>}
 
-      <div className="cadastrosmedicos-content">
+      <div className="cadastro-content">
         <div className="tabela-wrapper">
-          <div className="tabela">
-            <div className="tabela-linha tabela-cabecalho">
-              <div className="tabela-celula">ID</div>
-              <div className="tabela-celula">Nome Fantasia</div>
-            </div>
-
-            {carregando ? <p>Carregando...</p> : registros.map(reg => (
-              <div key={reg.ID} className="tabela-linha" onClick={() => handleEditar(reg)} style={{cursor:'pointer'}}>
-                <div className="tabela-celula">{reg.ID}</div>
-                <div className="tabela-celula">{reg.NOME_FANTASIA}</div>
-              </div>
-            ))}
-          </div>
+          <table className="tabela">
+            <thead>
+              <tr className="tabela-cabecalho">
+                <th className="tabela-celula">ID</th>
+                <th className="tabela-celula">Nome Fantasia</th>
+              </tr>
+            </thead>
+            <tbody>
+              {carregando ? (
+                <tr><td className="tabela-celula" colSpan="2">Carregando...</td></tr>
+              ) : registros.map(reg => (
+                <tr key={reg.ID} className="tabela-linha" onClick={() => handleEditar(reg)}>
+                  <td className="tabela-celula">{reg.ID}</td>
+                  <td className="tabela-celula">{reg.NOME_FANTASIA}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         <div className="formulario-wrapper">
@@ -355,7 +360,7 @@ export default function CadastroEmpresa({ onClose }) {
             </div>
 
             <div className="form-row-3">
-              <div className="form-group" style={{gridColumn: 'span 2'}}>
+              <div className="form-group form-group-span-2">
                 <label>Endereço:</label>
                 <input 
                   type="text" 
@@ -398,7 +403,7 @@ export default function CadastroEmpresa({ onClose }) {
             </div>
 
             <div className="form-row-4">
-              <div className="form-group" style={{gridColumn: 'span 2'}}>
+              <div className="form-group form-group-span-2">
                 <label>E-mail:</label>
                 <input 
                   type="email" 

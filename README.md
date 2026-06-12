@@ -101,10 +101,3 @@ server/
 4. **Documentação** - Guia completo passo a passo (arquitetura, cadastros, modais, API, banco, paleta de cores, fluxo completo)
 5. **Sobre** - Informações do projeto com tecnologias atualizadas
 
----
-
-## Contato
-
-**Desenvolvedor:** Arthur / Dialcron
-**Repositório:** GitHub do projeto
-**IA Utilizada:** OpenCode (big-pickle)
